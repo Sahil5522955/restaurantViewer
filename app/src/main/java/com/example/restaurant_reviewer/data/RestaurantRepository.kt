@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RestaurantRepository(
+class RestaurantRepository @Inject constructor(
     private val apiService: ApiService,
     private val restoDao: RestaurantDao,
 ) {
@@ -54,6 +55,10 @@ class RestaurantRepository(
 
     suspend fun deleteFavorite(id: String) {
         restoDao.deleteResto(id)
+    }
+
+    suspend fun deleteAllFavorites() {
+        restoDao.deleteAll()
     }
 
     suspend fun getDetailRestaurant(id: String) {

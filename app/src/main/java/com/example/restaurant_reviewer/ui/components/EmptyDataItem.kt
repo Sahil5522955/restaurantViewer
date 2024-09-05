@@ -13,7 +13,8 @@ import com.example.restaurant_reviewer.R
 
 @Composable
 fun EmptyDataItem(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isFromFav: Boolean = false
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -21,7 +22,7 @@ fun EmptyDataItem(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(R.string.empty_data),
+            text = stringResource( if (isFromFav) R.string.fav_list_empty else R.string.empty_data),
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.body1
         )

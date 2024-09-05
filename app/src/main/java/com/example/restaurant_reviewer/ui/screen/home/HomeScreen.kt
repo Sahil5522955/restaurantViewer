@@ -2,7 +2,11 @@ package com.example.restaurant_reviewer.ui.screen.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -11,26 +15,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.restaurant_reviewer.data.remote.response.RestaurantsItem
-import com.example.restaurant_reviewer.ui.components.RestaurantItem
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.restaurant_reviewer.di.Injection
-import com.example.restaurant_reviewer.ui.ViewModelFactory
 import com.example.restaurant_reviewer.ui.common.UiState
 import com.example.restaurant_reviewer.ui.components.EmptyDataItem
+import com.example.restaurant_reviewer.ui.components.RestaurantItem
 import com.example.restaurant_reviewer.ui.components.SearchBar
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToDetail: (String) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val viewModel : HomeViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository(LocalContext.current))
-    )
-
     val query by viewModel.query
 
     viewModel.listRestaurant.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -49,7 +47,10 @@ fun HomeScreen(
                         onQueryChanges = viewModel::getSearch,
                         modifier = Modifier.background(color = MaterialTheme.colors.primary)
                     )
-                    if (uiState.data.isEmpty()) EmptyDataItem(Modifier.fillMaxSize().padding(16.dp))
+                    if (uiState.data.isEmpty()) EmptyDataItem(
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp))
                     else {
                         HomeContent(
                             listResto = uiState.data,

@@ -13,7 +13,8 @@
     <string name="profile_txt">Profile</string>
     <string name="profile_email">sahiljain552@gmail.com</string>
     <string name="search_resto">Search Restaurant</string>
-    <string name="empty_data">Empty Data</string>
+    <string name="empty_data">No Items Available at the </string>
+    <string name="fav_list_empty">Your favorites list is empty</string>
     <string name="delete_favorite">Remove from Favorite</string>
     <string name="add_favorite">Add to Favorite</string>
 </resources>

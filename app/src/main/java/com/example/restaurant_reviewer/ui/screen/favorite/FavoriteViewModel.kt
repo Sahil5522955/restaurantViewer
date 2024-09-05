@@ -5,10 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.restaurant_reviewer.data.RestaurantRepository
 import com.example.restaurant_reviewer.data.local.RestaurantEntity
 import com.example.restaurant_reviewer.ui.common.UiState
-import kotlinx.coroutines.flow.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FavoriteViewModel(
+
+@HiltViewModel
+class FavoriteViewModel @Inject constructor(
     private val repo : RestaurantRepository
 ) : ViewModel() {
 

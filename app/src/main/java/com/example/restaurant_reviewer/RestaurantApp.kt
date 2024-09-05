@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -33,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.restaurant_reviewer.ui.navigation.NavigationItem
 import com.example.restaurant_reviewer.ui.navigation.Screen
+import com.example.restaurant_reviewer.ui.screen.ProfileViewModel
 import com.example.restaurant_reviewer.ui.screen.detail.DetailScreen
 import com.example.restaurant_reviewer.ui.screen.favorite.FavoriteScreen
 import com.example.restaurant_reviewer.ui.screen.home.HomeScreen
@@ -64,7 +66,6 @@ fun RestaurantApp(
                 .padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                // panggil home screen nanti disini
                 HomeScreen(
                     navigateToDetail = { id ->
                         navController.navigate(Screen.DetailRestaurant.createRoute(id))
@@ -101,13 +102,16 @@ fun RestaurantApp(
 }
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
+fun ProfileScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit, profileViewModel: ProfileViewModel = hiltViewModel()) {
     val context = LocalContext.current
     Box(
-        modifier = modifier.fillMaxSize().padding(16.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Button(onClick = {
+            profileViewModel.deleteAllFavs()
             navigateToHome()
         }) {
             Text(text = "Logout")

@@ -33,14 +33,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.restaurant_reviewer.R
 import com.example.restaurant_reviewer.data.local.RestaurantEntity
 import com.example.restaurant_reviewer.data.remote.response.Restaurant
-import com.example.restaurant_reviewer.di.Injection
-import com.example.restaurant_reviewer.ui.ViewModelFactory
 import com.example.restaurant_reviewer.ui.common.UiState
 import com.example.restaurant_reviewer.ui.components.FavoriteIconButton
 import com.example.restaurant_reviewer.ui.components.MenuItem
@@ -51,11 +49,8 @@ import kotlinx.coroutines.launch
 fun DetailScreen(
     id: String,
     navigateBack: () -> Unit,
+    viewModel: DetailViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-    val viewModel: DetailViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository(context))
-    )
     viewModel.detailRestaurant.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
@@ -81,13 +76,10 @@ fun DetailContent(
     resto: Restaurant,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: FavoriteViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
-    val viewModel: FavoriteViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository(context))
-    )
-
     val coroutineScope = rememberCoroutineScope()
 
     val favorite: Boolean by viewModel.isFavorite(resto.id).collectAsState(initial = false)

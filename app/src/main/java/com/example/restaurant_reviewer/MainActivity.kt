@@ -10,8 +10,12 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.restaurant_reviewer.ui.theme.RestaurantAppTheme
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,6 +27,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     RestaurantApp(navigateToHome = {
                         FirebaseAuth.getInstance().signOut()
+
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     })
