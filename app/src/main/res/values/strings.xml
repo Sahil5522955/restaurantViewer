@@ -10,6 +10,7 @@
     <string name="text_foods">Foods</string>
     <string name="text_drinks">Drinks</string>
     <string name="profile_name">Sahil</string>
+    <string name="profile_txt">Profile</string>
     <string name="profile_email">sahiljain552@gmail.com</string>
     <string name="search_resto">Search Restaurant</string>
     <string name="empty_data">Empty Data</string>

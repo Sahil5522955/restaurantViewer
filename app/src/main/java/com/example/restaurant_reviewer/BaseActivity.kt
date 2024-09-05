@@ -89,7 +89,7 @@ open class BaseActivity : ComponentActivity() {
                     finish()
                 } else {
                     Toast.makeText(
-                        context, "Authentication failed.",
+                        context, "Incorrect email or password",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -100,7 +100,7 @@ open class BaseActivity : ComponentActivity() {
     fun BaseLoginRegisterView(context: Context, isLoginActivity: Boolean) {
         Box(modifier = Modifier.fillMaxSize()) {
                 ClickableText(
-                    text = AnnotatedString("Sign up here"),
+                    text = AnnotatedString(if(isLoginActivity)"Sign up here" else "Login"),
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(20.dp),
@@ -126,7 +126,7 @@ open class BaseActivity : ComponentActivity() {
             val userEmail = remember { mutableStateOf(TextFieldValue()) }
             val password = remember { mutableStateOf(TextFieldValue()) }
 
-            Text(text = "Login", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
+            Text(text = if(isLoginActivity) "Login" else "Sign Up here", style = TextStyle(fontSize = 40.sp, fontFamily = FontFamily.Cursive))
 
             Spacer(modifier = Modifier.height(20.dp))
             TextField(
@@ -167,14 +167,6 @@ open class BaseActivity : ComponentActivity() {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            ClickableText(
-                text = AnnotatedString("Forgot password?"),
-                onClick = { },
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily.Default
-                )
-            )
         }
     }
 }

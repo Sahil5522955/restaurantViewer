@@ -52,7 +52,9 @@ fun RestaurantApp(
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
-            modifier = Modifier.fillMaxSize().padding(innerPadding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
                 // panggil home screen nanti disini
@@ -108,7 +110,7 @@ fun BottomBar(
                 title = stringResource(R.string.menu_favorite),
                 icon = Icons.Default.Favorite,
                 screen = Screen.Favorite
-            ),
+            )
         )
 
         BottomNavigation {
