@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.restaurant_reviewer.data.local.RestaurantEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +16,7 @@ interface RestaurantDao {
 
     @Query("DELETE FROM restaurant WHERE id = :id")
     suspend fun deleteResto(id: String)
+
+    @Query("DELETE FROM restaurant")
+    suspend fun deleteAll()
 }

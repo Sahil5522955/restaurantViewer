@@ -1,22 +1,28 @@
 package com.example.restaurant_reviewer
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -36,6 +42,7 @@ import com.example.restaurant_reviewer.ui.theme.RestaurantAppTheme
 fun RestaurantApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    navigateToHome: () -> Unit
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -75,6 +82,10 @@ fun RestaurantApp(
                 )
             }
 
+            composable(Screen.Profile.route) {
+                ProfileScreen(navigateToHome = navigateToHome)
+            }
+
             composable(
                 route = Screen.DetailRestaurant.route,
                 arguments = listOf(navArgument("id") { type = NavType.StringType }),
@@ -85,6 +96,21 @@ fun RestaurantApp(
                     navigateBack = { navController.navigateUp() },
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
+    val context = LocalContext.current
+    Box(
+        modifier = modifier.fillMaxSize().padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(onClick = {
+            navigateToHome()
+        }) {
+            Text(text = "Logout")
         }
     }
 }
@@ -110,6 +136,11 @@ fun BottomBar(
                 title = stringResource(R.string.menu_favorite),
                 icon = Icons.Default.Favorite,
                 screen = Screen.Favorite
+            ),
+            NavigationItem(
+                title = stringResource(R.string.profile_txt),
+                icon = Icons.Default.AccountCircle,
+                screen = Screen.Profile
             )
         )
 
@@ -143,6 +174,7 @@ fun BottomBar(
 @Composable
 fun RestaurantAppPreview() {
     RestaurantAppTheme {
-        RestaurantApp()
+        RestaurantApp(navigateToHome = {
+        })
     }
 }
