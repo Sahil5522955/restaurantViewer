@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RestaurantApp</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_profile">Profile</string>
+    <string name="back">Back</string>
+    <string name="resto_app">Restaurant App</string>
+    <string name="text_about">About</string>
+    <string name="text_foods">Foods</string>
+    <string name="text_drinks">Drinks</string>
+    <string name="profile_name">Sahil</string>
+    <string name="profile_email">sahiljain552@gmail.com</string>
+    <string name="search_resto">Search Restaurant</string>
+    <string name="empty_data">Empty Data</string>
+    <string name="delete_favorite">Remove from Favorite</string>
+    <string name="add_favorite">Add to Favorite</string>
+</resources>
