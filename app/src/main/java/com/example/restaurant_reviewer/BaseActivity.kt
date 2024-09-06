@@ -80,7 +80,7 @@ open class BaseActivity : ComponentActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(
-                        context,
+                        this,
                         "Login Successful",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -89,7 +89,8 @@ open class BaseActivity : ComponentActivity() {
                     finish()
                 } else {
                     Toast.makeText(
-                        context, "Incorrect email or password",
+                        this
+                        , "Incorrect email or password",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -146,10 +147,8 @@ open class BaseActivity : ComponentActivity() {
             Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                 Button(
                     onClick = {
-                        if (TextUtils.isEmpty(userEmail.value.toString())) {
-                            Toast.makeText(this@BaseActivity, "Enter email", Toast.LENGTH_SHORT).show()
-                        } else if (TextUtils.isEmpty(password.value.toString())) {
-                            Toast.makeText(this@BaseActivity, "Enter password", Toast.LENGTH_SHORT).show()
+                        if (TextUtils.isEmpty(userEmail.value.text) || TextUtils.isEmpty(password.value.text)) {
+                            Toast.makeText(this@BaseActivity, "Email or password is missing", Toast.LENGTH_SHORT).show()
                         } else {
                             if (isLoginActivity)
                                 loginUser(context, userEmail.value.text, password.value.text)
@@ -165,8 +164,6 @@ open class BaseActivity : ComponentActivity() {
                     Text(text = if (isLoginActivity) "Login" else "Register")
                 }
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
